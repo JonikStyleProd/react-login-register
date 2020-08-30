@@ -9,6 +9,11 @@ const config = require("./config/key");
 const { User } = require("./models/user");
 const { auth } = require("./Middleware/auth");
 
+
+app.get('/', (req, res) => {
+  res.json('Hello My Name is John and i am Student');
+})
+
 mongoose
   .connect(config.mongoURI, { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected"))
