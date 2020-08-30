@@ -1,57 +1,55 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
-import {loginUser} from '../../actions/user_action'
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/user_action";
 import { withRouter } from "react-router-dom";
-
+import  { Link } from 'react-router-dom';
 
 class Login extends Component {
-     state = {
-        email: "",
-        password: "",
-        errors: []
-    }
-    //Error Function
-    displayErrors = errors =>
-        errors.map((errors, i) => <p key={i}>{errors}</p>)
+  state = {
+    email: "",
+    password: "",
+    errors: [],
+  };
+  //Error Function
+  displayErrors = (errors) =>
+    errors.map((errors, i) => <p key={i}>{errors}</p>);
 
-    handleChange = event => {
-        this.setState({[event.target.name]: event.target.value});
-    }
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
 
-    submitForm = event => {
-        event.preventDefault();
+  submitForm = (event) => {
+    event.preventDefault();
 
-        let dataToSubmit = {
-            email: this.state.email,
-            password: this.state.password
-        };
-        
-        //Check Valid or Not
-        if(this.isFormvalid(this.state)){
-            this.setState({errors: [] })
-                this.props.dispatch(loginUser(dataToSubmit))
-                .then(responce => { 
-                    if(responce.payload.loginSuccess) {
-                        this.props.history.push('/home')
-                    }else{
-                        this.setState({ 
-                            errors: this.state.errors.concat(
-                                "Failed to Log in, you can check your Email and Password. And try again!"
-                            )
-                        })
-                    }
-                })
+    let dataToSubmit = {
+      email: this.state.email,
+      password: this.state.password,
+    };
 
-        }else {
-            this.setState({ 
-                errors: this.state.errors.concat('Form is not valid!')
-            })
+    //Check Valid or Not
+    if (this.isFormvalid(this.state)) {
+      this.setState({ errors: [] });
+      this.props.dispatch(loginUser(dataToSubmit)).then((responce) => {
+        if (responce.payload.loginSuccess) {
+          this.props.history.push("/home");
+        } else {
+          this.setState({
+            errors: this.state.errors.concat(
+              "Failed to Log in, you can check your Email and Password. And try again!"
+            ),
+          });
         }
+      });
+    } else {
+      this.setState({
+        errors: this.state.errors.concat("Form is not valid!"),
+      });
     }
-    isFormvalid = ({ email, password }) => email && password;
+  };
+  isFormvalid = ({ email, password }) => email && password;
 
-        render(){
-        return (
+  render() {
+    return (
       <div className="container">
         <h2>Login</h2>
         <div className="row">
@@ -61,6 +59,7 @@ class Login extends Component {
           >
             <div className="row">
               <div className="input-field col s12">
+              <i class="material-icons prefix">mail</i>
                 <input
                   name="email"
                   value={this.state.email}
@@ -79,7 +78,8 @@ class Login extends Component {
             </div>
             <div className="row">
               <div className="input-field col s12">
-              <input
+              <i class="material-icons prefix">lock</i>
+                <input
                   name="password"
                   value={this.state.password}
                   onChange={(e) => this.handleChange(e)}
@@ -88,7 +88,7 @@ class Login extends Component {
                   className="validate"
                   placeholder="Password"
                 />
-               
+
                 <span
                   className="helper-text"
                   data-error="Wrong Password"
@@ -98,24 +98,27 @@ class Login extends Component {
             </div>
 
             {this.state.errors.length > 0 && (
-                <div>
-                    {this.displayErrors(this.state.errors)}
-                </div>
+              <div>{this.displayErrors(this.state.errors)}</div>
             )}
 
-            <div className="row">
-                <div className="col 12 ">
-                    <button 
-                            className="btn waves-effect black lighten-2"
-                            type="submit"
-                            name="action"
-                            onClick={this.submitForm}
-                    >
-                        Login <i class="material-icons right">send</i>
-                    </button>
-
-                </div>
-
+            <div className="row" >
+              <div className="col s12" >
+                <button
+                style={{ margin: "5px"}}
+                  className="btn waves-effect black lighten-5"
+                  type="submit"
+                  name="action"
+                  onClick={this.submitForm}
+                >
+                  Login <i class="material-icons right">send</i>
+                </button>
+                <button 
+                style={{ margin: "5px" , color: "white"}}
+                className="btn waves-effect black lighten-2">
+                  <Link to="/register" style={{color: "white"}}>Sing Up</Link>
+                  <i class="material-icons right">create</i>
+                </button>
+              </div>
             </div>
           </form>
         </div>
@@ -125,9 +128,9 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-        user: state.user
-    }
+  return {
+    user: state.user,
+  };
 }
 
 export default connect(mapStateToProps)(withRouter(Login));
