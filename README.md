@@ -4,6 +4,7 @@
 npm install - in local directory
 
 /*************************************************************************************************************************************************/
+
 cd client - in terminal
 npm install - in client directory
 
