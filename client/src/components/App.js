@@ -3,13 +3,17 @@ import './App.css';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import About from './about/index';
 import Home from './Home/Home';
-import RegisterLogin from './RegisterLogin/index';
+import Login from './RegisterLogin/index';
+import Register from './RegisterLogin/register';
 
 function App() {
   return (
     <div className="App">
 
         <Switch>
+          <Route path="/register">
+            <Register />
+          </Route>
           <Route path="/home">
             <Home />
           </Route>
@@ -17,9 +21,9 @@ function App() {
               <About />
             </Route>
             <Route path="/login">
-              <RegisterLogin />
+              <Login />
             </Route>
-            <Redirect to="/" />
+            <Redirect to="/home" />
         </Switch>
 
 

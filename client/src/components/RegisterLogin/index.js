@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import {loginUser} from '../../actions/user_action'
+import { withRouter } from "react-router-dom";
 
 
-class RegisterLogin extends Component {
+class Login extends Component {
      state = {
         email: "",
         password: "",
@@ -60,7 +61,6 @@ class RegisterLogin extends Component {
           >
             <div className="row">
               <div className="input-field col s12">
-              <label htmlFor="email">Email </label>
                 <input
                   name="email"
                   value={this.state.email}
@@ -68,8 +68,8 @@ class RegisterLogin extends Component {
                   id="email"
                   type="email"
                   className="validate"
+                  placeholder="Email"
                 />
-
                 <span
                   className="helper-text"
                   data-error="Type a right type email"
@@ -79,7 +79,6 @@ class RegisterLogin extends Component {
             </div>
             <div className="row">
               <div className="input-field col s12">
-              <label htmlFor="email">Password </label>
               <input
                   name="password"
                   value={this.state.password}
@@ -87,8 +86,9 @@ class RegisterLogin extends Component {
                   id="password"
                   type="password"
                   className="validate"
+                  placeholder="Password"
                 />
-                
+               
                 <span
                   className="helper-text"
                   data-error="Wrong Password"
@@ -104,14 +104,14 @@ class RegisterLogin extends Component {
             )}
 
             <div className="row">
-                <div className="col 12">
+                <div className="col 12 ">
                     <button 
-                            className="btn waves-effect blue lighten-2"
+                            className="btn waves-effect black lighten-2"
                             type="submit"
                             name="action"
                             onClick={this.submitForm}
                     >
-                        Login
+                        Login <i class="material-icons right">send</i>
                     </button>
 
                 </div>
@@ -130,4 +130,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(RegisterLogin);
+export default connect(mapStateToProps)(withRouter(Login));
